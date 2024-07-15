@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const Question = ({ question, onAnswerSelect }) => {
+const Question = ({ question, onAnswerSelect, disabled }) => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const { title, body } = question;
 
@@ -9,8 +9,10 @@ const Question = ({ question, onAnswerSelect }) => {
   }, [question]);
 
   const handleAnswerClick = (answer) => {
-    setSelectedAnswer(answer);
-    onAnswerSelect(answer);
+    if (!disabled) {
+      setSelectedAnswer(answer);
+      onAnswerSelect(answer);
+    }
   };
 
   return (
@@ -21,24 +23,28 @@ const Question = ({ question, onAnswerSelect }) => {
         <button
           className={`answer-btn ${selectedAnswer === "A" && "selected"}`}
           onClick={() => handleAnswerClick("A")}
+          disabled={disabled}
         >
           A
         </button>
         <button
           className={`answer-btn ${selectedAnswer === "B" && "selected"}`}
           onClick={() => handleAnswerClick("B")}
+          disabled={disabled}
         >
           B
         </button>
         <button
           className={`answer-btn ${selectedAnswer === "C" && "selected"}`}
           onClick={() => handleAnswerClick("C")}
+          disabled={disabled}
         >
           C
         </button>
         <button
           className={`answer-btn ${selectedAnswer === "D" && "selected"}`}
           onClick={() => handleAnswerClick("D")}
+          disabled={disabled}
         >
           D
         </button>

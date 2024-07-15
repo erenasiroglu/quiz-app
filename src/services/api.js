@@ -12,6 +12,7 @@ export const fetchQuestions = async () => {
     }));
     return questions;
   } catch (error) {
-    throw new Error("Error fetching questions: ", error);
+    console.error("Error fetching questions: ", error);
+    throw new Error("Error fetching questions");
   }
 };
