@@ -1,0 +1,39 @@
+.resultsContainer {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  .resultsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .resultsTable th, .resultsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .resultsTable th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .resultsTable .resultItem:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .restartBtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .restartBtn:hover {
+    background-color: #0056b3;
+  }
+  

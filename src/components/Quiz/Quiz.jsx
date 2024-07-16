@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Question from "./Question";
-import Timer from "./Timer";
-import Results from "./Results";
-import { fetchQuestions } from "../services/api";
+import Question from "../Question/Question";
+import Timer from "../Timer/Timer";
+import Results from "../Results/Results";
+import Notification from "../Notification/Notification";
+import { fetchQuestions } from "../../services/api";
+import styles from "./styles.module.css";
 
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,6 +13,8 @@ const Quiz = () => {
   const [showResults, setShowResults] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(30);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
     const fetchQuestionsData = async () => {
@@ -55,6 +59,24 @@ const Quiz = () => {
     setAnswers(updatedAnswers);
   };
 
+  const showNotificationMessage = (message) => {
+    setNotificationMessage(message);
+    setShowNotification(true);
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setTimeLeft(30);
+      setDisabled(true);
+    } else {
+      setShowResults(true);
+    }
+  };
+
   const restartQuiz = async () => {
     try {
       const questionsData = await fetchQuestions();
@@ -70,15 +92,24 @@ const Quiz = () => {
   };
 
   return (
-    <div className="quiz-container">
+    <div className={styles.quizContainer}>
+      {showNotification && <Notification message={notificationMessage} />}
       {!showResults && questions.length > 0 && (
         <>
           <Question
             question={questions[currentQuestionIndex]}
             onAnswerSelect={handleAnswerSelect}
             disabled={disabled}
+            questionNumber={currentQuestionIndex + 1}
+            showNotification={showNotificationMessage}
           />
           <Timer timeLeft={timeLeft} />
+          {!disabled && answers[currentQuestionIndex] && (
+            <button className={styles.nextButton} onClick={handleNextQuestion}>
+              Next Question
+            </button>
+          )}
+          <p className={styles.info}>You cannot return to previous questions once you proceed.</p>
         </>
       )}
       {showResults && (
