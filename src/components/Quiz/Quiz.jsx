@@ -22,7 +22,7 @@ const Quiz = () => {
         const questionsData = await fetchQuestions();
         setQuestions(questionsData);
       } catch (error) {
-        console.error("Error fetching questions: ", error);
+        showNotificationMessage("Error fetching questions.");
       }
     };
 
@@ -87,7 +87,7 @@ const Quiz = () => {
       setDisabled(true);
       setTimeLeft(30);
     } catch (error) {
-      console.error("error ", error);
+      showNotificationMessage("Error restarting the quiz.");
     }
   };
 
