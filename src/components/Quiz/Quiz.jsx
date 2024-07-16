@@ -43,7 +43,7 @@ const Quiz = () => {
           }
           return 0;
         }
-        if (prev === 20) {
+        if (prev <= 20) {
           setDisabled(false);
         }
         return prev - 1;
@@ -92,24 +92,35 @@ const Quiz = () => {
   };
 
   return (
-    <div className={styles.quizContainer}>
-      {showNotification && <Notification message={notificationMessage} />}
-      {!showResults && questions.length > 0 && (
+    <div className={styles.container}>
+      {!showResults && (
         <>
-          <Question
-            question={questions[currentQuestionIndex]}
-            onAnswerSelect={handleAnswerSelect}
-            disabled={disabled}
-            questionNumber={currentQuestionIndex + 1}
-            showNotification={showNotificationMessage}
-          />
           <Timer timeLeft={timeLeft} />
-          {!disabled && answers[currentQuestionIndex] && (
-            <button className={styles.nextButton} onClick={handleNextQuestion}>
-              Next Question
-            </button>
-          )}
-          <p className={styles.info}>You cannot return to previous questions once you proceed.</p>
+          <div className={styles.containerInner}>
+            {!showResults && questions.length > 0 && (
+              <>
+                <Question
+                  question={questions[currentQuestionIndex]}
+                  onAnswerSelect={handleAnswerSelect}
+                  disabled={disabled}
+                  questionNumber={currentQuestionIndex + 1}
+                  showNotification={showNotificationMessage}
+                  timeLeft={timeLeft}
+                />
+                {!disabled && answers[currentQuestionIndex] && (
+                  <button
+                    className={styles.nextButton}
+                    onClick={handleNextQuestion}
+                  >
+                    Next Question
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+          <p className={styles.info}>
+            You can't return to previous questions once you proceed.
+          </p>
         </>
       )}
       {showResults && (
@@ -119,6 +130,7 @@ const Quiz = () => {
           onRestart={restartQuiz}
         />
       )}
+      {showNotification && <Notification message={notificationMessage} />}
     </div>
   );
 };

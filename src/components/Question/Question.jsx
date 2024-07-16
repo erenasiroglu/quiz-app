@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./styles.module.css";
 
-const Question = ({ question, onAnswerSelect, disabled, questionNumber, showNotification }) => {
+const Question = ({ question, onAnswerSelect, disabled, questionNumber, showNotification, timeLeft }) => {
   const [selectedAnswer, setSelectedAnswer] = useState("");
   const { title, body } = question;
 
@@ -14,10 +14,12 @@ const Question = ({ question, onAnswerSelect, disabled, questionNumber, showNoti
       setSelectedAnswer(answer);
       onAnswerSelect(answer);
     } else {
-      showNotification("Please wait for the first 10 seconds to answer.");
+      if (timeLeft >= 20) {
+        showNotification("Please wait for the first 10 seconds to answer.");
+      }
     }
   };
-
+  
   return (
     <div className={styles.questionContainer}>
       <div className={styles.questionHeader}>
