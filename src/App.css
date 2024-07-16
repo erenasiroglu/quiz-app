@@ -53,3 +53,42 @@
   font-size: 1.5rem;
   margin-top: 10px;
 }
+
+.results-container {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.results-table th {
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+.results-table .result-item:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.restart-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.restart-btn:hover {
+  background-color: #0056b3;
+}
