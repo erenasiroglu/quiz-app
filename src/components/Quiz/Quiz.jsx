@@ -12,7 +12,7 @@ const Quiz = () => {
   const [answers, setAnswers] = useState(Array(10).fill(""));
   const [showResults, setShowResults] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(2);
+  const [timeLeft, setTimeLeft] = useState(30);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationType, setNotificationType] = useState("error");
