@@ -24,14 +24,13 @@
 }
 
 .answerBtn:hover {
-  background-color: #4ca1af;
-  border-color: #4ca1af;
+  background: var(--secondary-color);
   color: #fff;
   transform: scale(1.05);
 }
 
 .selected {
-  background-color: #4ca1af;
+  background: var(--secondary-color);
   border-color: #4ca1af;
   color: #fff;
 }

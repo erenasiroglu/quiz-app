@@ -10,13 +10,11 @@ const Question = ({ question, onAnswerSelect, disabled, questionNumber, showNoti
   }, [question]);
 
   const handleAnswerClick = (answer) => {
-    if (!disabled) {
+    if (timeLeft > 20) {
+      showNotification("You cannot answer within the first 10 seconds.");
+    } else if (!disabled) {
       setSelectedAnswer(answer);
       onAnswerSelect(answer);
-    } else {
-      if (timeLeft >= 20) {
-        showNotification("Please wait for the first 10 seconds to answer.");
-      }
     }
   };
   
@@ -33,7 +31,6 @@ const Question = ({ question, onAnswerSelect, disabled, questionNumber, showNoti
             key={answer}
             className={`${styles.answerBtn} ${selectedAnswer === answer ? styles.selected : ""}`}
             onClick={() => handleAnswerClick(answer)}
-            disabled={disabled}
           >
             {answer}
           </button>

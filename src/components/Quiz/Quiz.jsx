@@ -12,9 +12,10 @@ const Quiz = () => {
   const [answers, setAnswers] = useState(Array(10).fill(""));
   const [showResults, setShowResults] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [timeLeft, setTimeLeft] = useState(30);
+  const [timeLeft, setTimeLeft] = useState(2);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationType, setNotificationType] = useState("error");
 
   useEffect(() => {
     const fetchQuestionsData = async () => {
@@ -54,13 +55,19 @@ const Quiz = () => {
   }, [currentQuestionIndex, questions.length]);
 
   const handleAnswerSelect = (answer) => {
+    if (timeLeft > 20) {
+      window.alert("You cannot answer within the first 10 seconds.");
+      return;
+    }
+
     const updatedAnswers = [...answers];
     updatedAnswers[currentQuestionIndex] = answer;
     setAnswers(updatedAnswers);
   };
 
-  const showNotificationMessage = (message) => {
+  const showNotificationMessage = (message, type = "error") => {
     setNotificationMessage(message);
+    setNotificationType(type);
     setShowNotification(true);
     setTimeout(() => {
       setShowNotification(false);
@@ -72,6 +79,7 @@ const Quiz = () => {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setTimeLeft(30);
       setDisabled(true);
+      showNotificationMessage("Your answer has been saved", "success");
     } else {
       setShowResults(true);
     }
@@ -130,7 +138,9 @@ const Quiz = () => {
           onRestart={restartQuiz}
         />
       )}
-      {showNotification && <Notification message={notificationMessage} />}
+      {showNotification && (
+        <Notification message={notificationMessage} type={notificationType} />
+      )}
     </div>
   );
 };
